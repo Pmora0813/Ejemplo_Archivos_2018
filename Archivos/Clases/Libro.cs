@@ -20,6 +20,7 @@ namespace Archivos.Clases
         [DataMember] 
         public string Autor { get; set; }
 
+        [DataMember]
         public double Precio { get; set; }
     }
 }

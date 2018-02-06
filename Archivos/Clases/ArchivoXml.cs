@@ -43,6 +43,7 @@ namespace Archivos.Clases
                     libro.Codigo = Int32.Parse(nodo["CODIGO"].InnerText);
                     libro.Titulo = nodo["TITULO"].InnerText;
                     libro.Autor = nodo["AUTOR"].InnerText;
+                    libro.Precio = Convert.ToDouble(nodo["PRECIO"].InnerText);
 
                     // Agregar el Arreglo en la Lista
                     lista.Add(libro);
@@ -79,6 +80,8 @@ namespace Archivos.Clases
                 libro.Codigo = int.Parse(nodo["CODIGO"].InnerText);
                 libro.Titulo = nodo["TITULO"].InnerText;
                 libro.Autor = nodo["AUTOR"].InnerText;
+                libro.Precio = Convert.ToDouble(nodo["PRECIO"].InnerText);
+
 
                 return libro;
             }
@@ -117,7 +120,9 @@ namespace Archivos.Clases
 
             newRegistro.InnerXml = "<CODIGO>" + libro.Codigo.ToString() + "</CODIGO>" +
                                    "<TITULO>" + libro.Titulo + "</TITULO>" +
-                                   "<AUTOR>" + libro.Autor + "</AUTOR>";
+                                   "<AUTOR>" + libro.Autor + "</AUTOR>"+
+                                   "<PRECIO>" + Convert.ToDouble(libro.Precio) + "</PRECIO>";
+
 
             //root.InsertBefore(newRegistro, root.FirstChild);
             root.AppendChild(newRegistro);
@@ -140,7 +145,8 @@ namespace Archivos.Clases
             XmlElement newRegistro = doc.CreateElement("LIBRO");
             newRegistro.InnerXml = "<CODIGO>" + libro.Codigo.ToString() + "</CODIGO>" +
                                    "<TITULO>" + libro.Titulo + "</TITULO>" +
-                                   "<AUTOR>" + libro.Autor + "</AUTOR>";
+                                   "<AUTOR>" + libro.Autor + "</AUTOR>" +
+                                   "<PRECIO>" + Convert.ToDouble(libro.Precio) + "</PRECIO>";
 
             root.ReplaceChild(newRegistro, oldRegistro);
 
@@ -160,10 +166,10 @@ namespace Archivos.Clases
 
             if (registro != null)
             {
-                root.RemoveChild(registro);               
+                root.RemoveChild(registro);
                 // Salvar
                 doc.Save(Ruta);
-            }            
+            }
         }
 
         public void EliminarArchivo()

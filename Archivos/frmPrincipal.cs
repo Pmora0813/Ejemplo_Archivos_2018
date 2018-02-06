@@ -32,6 +32,10 @@ namespace Archivos
         private void cmbTipoArchivo_SelectedIndexChanged(object sender, EventArgs e)
         {
             Refrescar();
+            mtxCodigo.Text = "";
+            txtAutor.Text = "";
+            txtTitulo.Text = "";
+            mskPrecio.Text = "";
         }
 
         private void Refrescar()
