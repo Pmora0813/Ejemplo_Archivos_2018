@@ -94,7 +94,7 @@ namespace Archivos.Clases
             if (this.BuscarLibroPorCodigo(libro.Codigo) != null)
                 this.EditarLibro(libro);
             else
-                this.AgregarLibro(libro);
+                this.AgregarLibro2(libro);
         }
 
         public void AgregarLibro(Libro libro)
@@ -120,7 +120,7 @@ namespace Archivos.Clases
 
             newRegistro.InnerXml = "<CODIGO>" + libro.Codigo.ToString() + "</CODIGO>" +
                                    "<TITULO>" + libro.Titulo + "</TITULO>" +
-                                   "<AUTOR>" + libro.Autor + "</AUTOR>"+
+                                   "<AUTOR>" + libro.Autor + "</AUTOR>" +
                                    "<PRECIO>" + Convert.ToDouble(libro.Precio) + "</PRECIO>";
 
 
@@ -181,5 +181,59 @@ namespace Archivos.Clases
         {
             return "Archivo XML";
         }
+
+
+        public void AgregarLibro2(Libro libro)
+        {
+            XmlDocument doc = new XmlDocument();
+
+            //  Si el archivo no existe debe crearlo
+            // con la estructura raiz
+            if (File.Exists(Ruta) == false)
+            {
+                // LoadXml carga un string con formato xml
+                doc.LoadXml("<LIBROS></LIBROS>");
+            }
+            else
+            {
+                // Load carga un archivo con formato xml en una ruta 
+                doc.Load(Ruta);
+            }
+            // DocumentElement = raiz (solo puede existir 1)
+            XmlElement root = doc.DocumentElement;
+
+            XmlElement newRegistro = doc.CreateElement("LIBRO");
+
+            XmlElement NodoAutor = doc.CreateElement("AUTOR");
+            NodoAutor.InnerText = libro.Autor;
+            newRegistro.AppendChild(NodoAutor);
+
+            XmlElement NodoCodigo = doc.CreateElement("CODIGO");
+            NodoCodigo.InnerText = libro.Codigo.ToString();
+            newRegistro.AppendChild(NodoCodigo);
+
+            XmlElement NodoTitulo = doc.CreateElement("TITULO");
+            NodoTitulo.InnerText = libro.Titulo;
+            newRegistro.AppendChild(NodoTitulo);
+
+            XmlElement NodoPrecio = doc.CreateElement("PRECIO");
+            NodoPrecio.InnerText = libro.Precio.ToString();
+            newRegistro.AppendChild(NodoPrecio);
+
+
+            //newRegistro.InnerXml = "<CODIGO>" + libro.Codigo.ToString() + "</CODIGO>" +
+            //                       "<TITULO>" + libro.Titulo + "</TITULO>" +
+            //                       "<AUTOR>" + libro.Autor + "</AUTOR>" +
+            //                       "<PRECIO>" + Convert.ToDouble(libro.Precio) + "</PRECIO>";
+
+
+            //root.InsertBefore(newRegistro, root.FirstChild);
+            root.AppendChild(newRegistro);
+
+            // Salvar
+            doc.Save(Ruta);
+        }
     }
+
+
 }

@@ -30,7 +30,7 @@ namespace Archivos.Clases
                     DataContractJsonSerializer oDataContractJsonSerializer = new DataContractJsonSerializer(typeof(List<Libro>));
                     MemoryStream ms = new MemoryStream(System.Text.ASCIIEncoding.UTF8.GetBytes(datosJson));
 
-                    // Convertirlo en Objetos
+                    // Convertirlo en Objetos // Desarializar los objetos
                     lista = (List<Libro>)oDataContractJsonSerializer.ReadObject(ms);
                 }
             }
@@ -62,13 +62,13 @@ namespace Archivos.Clases
         {
             List<Libro> lista = this.ObtenerLibros();
             lista.Add(libro);
-
+            //Arreglo de bits en memoria
             MemoryStream ms = new MemoryStream();
 
             // Sacar del DataGridView a una lista
 
             DataContractJsonSerializer oDataContractJsonSerializer = new DataContractJsonSerializer(typeof(List<Libro>));
-
+            
             oDataContractJsonSerializer.WriteObject(ms, lista);
             string datosJson = Encoding.Default.GetString(ms.ToArray());
 
