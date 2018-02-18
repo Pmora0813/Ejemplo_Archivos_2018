@@ -22,5 +22,8 @@ namespace Archivos.Clases
 
         [DataMember]
         public double Precio { get; set; }
+
+
+        ///asoinaoisnfoiasnfoinfasoicaisncioasncapcnoaicoiancoiancna
     }
 }
